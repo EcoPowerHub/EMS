@@ -5,5 +5,5 @@ This package defines how is structured the complete config file
 */
 
 type EMS struct {
-	Equipments Equipments `json:",squash"`
+	Equipments []Equipment `json:"equipments"`
 }

@@ -3,6 +3,7 @@ package common
 type PV struct {
 	P_kW       float64 `json:"p_kw"`
 	Capacity_W float64 `json:"capacity_w"`
+	Timestamp  int64   `json:"timestamp"`
 }
 
 func (p *PV) Copy() PV {

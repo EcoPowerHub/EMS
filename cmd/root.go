@@ -18,9 +18,9 @@ var (
 		Long: `long description (to define)`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if cfgFile == "" {
-				// Replace by log error
+				// #8
 				log.Fatal("Missing required flag: --conf.")
-				cmd.Help()
+				_ = cmd.Help()
 				os.Exit(1)
 				return
 			}
@@ -34,6 +34,7 @@ func Execute() {
 		os.Exit(1)
 	}
 
+	// Start EMS if no error
 	ems.Start(cfgFile)
 
 }
