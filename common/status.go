@@ -2,7 +2,7 @@ package common
 
 type Status struct {
 	Value     float64 `json:"value"`
-	Timestamp uint64  `json:"timestamp"`
+	Timestamp int64   `json:"timestamp"`
 }
 
 func (s *Status) Copy() Status {

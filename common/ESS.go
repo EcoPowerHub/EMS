@@ -5,7 +5,7 @@ type ESS struct {
 	Soc         float64 `json:"soc"`
 	Soh         float64 `json:"soh"`
 	Capacity_Wh float64 `json:"capacity_wh"`
-	Timestamp   uint64  `json:"timestamp"`
+	Timestamp   int64   `json:"timestamp"`
 }
 
 func (e *ESS) Copy() ESS {
