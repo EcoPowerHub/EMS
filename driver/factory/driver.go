@@ -1,4 +1,4 @@
-package driver
+package equipment
 
 import "github.com/EcoPowerHub/EMS/common"
 

@@ -27,6 +27,7 @@ func New(logger zerolog.Logger, host string, conf interface{}) *Driver {
 	return &Driver{
 		logger: logger,
 		state:  common.DriverState{Value: common.DriverStateInit},
+		host:   host,
 	}
 }
 
@@ -72,6 +73,7 @@ func (d *Driver) Cycle() error {
 
 	d.state.Value = common.DriverStateOnline
 	d.readings.p_w = float64(p_w)
+	d.lastRead = time.Now()
 	return nil
 }
 
