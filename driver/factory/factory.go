@@ -10,6 +10,10 @@ import (
 )
 
 func Instanciate(equipments config.Equipments) ([]Driver, error) {
+	/*
+		entry : list of equipments
+		return : list of drivers
+	*/
 	drivers := make([]Driver, len(equipments.Equipments))
 	for i, equipment := range equipments.Equipments {
 		// TODO replace logger instanciation, see #8

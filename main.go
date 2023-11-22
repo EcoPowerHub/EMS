@@ -12,16 +12,24 @@ import (
 )
 
 func main() {
-	fmt.Println("Starting app")
-	var equipmentData config.Equipments
+
+	// Create logger
 	logger := zerolog.New(os.Stdout).With().Timestamp().Logger()
 
+	fmt.Println("Starting app")
+
+	var equipmentData config.Equipments // []Equipment
+
+	// Read the file and make it matching with equipmentData
 	err := utils.ReadJsonFile("tests/equipment.json", &equipmentData)
 	if err != nil {
 		return
 	}
+
+	// Print the equipment configuration
 	equipmentData.Print()
 
+	// Create a manager (drivers) with the config
 	manager, err := manager.New(equipmentData)
 	if err != nil {
 		logger.Error().Err(err).Msg("Failed to create manager")
@@ -32,10 +40,13 @@ func main() {
 		return
 	}
 
+	// While cycle isn't finished
 	for {
+		// Executing all drivers
 		if err := manager.Cycle(); err != nil {
 			return
 		}
+		// Reading drivers values
 		readings := manager.Read()
 		logger.Info().Interface("readings", readings).Msg("Readings")
 
