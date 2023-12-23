@@ -2,6 +2,9 @@ package config
 
 import "fmt"
 
+/*
+This package defines how is structured the equipment part in the configuration file.
+*/
 type Equipment struct {
 	ID          string `json:"id"`
 	Description string `json:"description"`
@@ -10,7 +13,7 @@ type Equipment struct {
 }
 
 type Equipments struct {
-	Equipments []Equipment `json:"equipment"`
+	Equipments []Equipment `json:"equipments"`
 }
 
 func (e *Equipments) Print() {
