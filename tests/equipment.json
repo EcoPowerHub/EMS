@@ -3,23 +3,8 @@
     {
       "id": "generic/pv",
       "description": "equipmentPv",
-      "host": "localhost:",
-      "name": "pv",
-      "conf": {}
-    },
-    {
-      "id": "generic/battery",
-      "description": "equipmentBattery",
-      "host": "localhost:",
-      "name": "battery",
-      "conf": {}
-    },
-    {
-      "id": "generic/poc",
-      "description": "equipmentPoc",
-      "host": "localhost:",
-      "name": "poc",
-      "conf": {}
+      "host": "localhost:5502",
+      "name": "pv"
     }
   ]
 }
