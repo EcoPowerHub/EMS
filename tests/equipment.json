@@ -6,5 +6,21 @@
       "host": "localhost:5502",
       "name": "pv"
     }
-  ]
+  ],
+  "context": {
+    "objects": {
+      "pv1": {
+        "type": "pv",
+        "description": "Description for ObjectType1"
+      },
+      "status2": {
+        "type": "status",
+        "description": "Description for ObjectType2"
+      },
+      "ess1": {
+        "type": "battery",
+        "description": "Description for ObjectType3"
+      }
+    }
+  }
 }

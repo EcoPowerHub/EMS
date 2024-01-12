@@ -8,6 +8,7 @@ import (
 	"github.com/EcoPowerHub/EMS/config"
 	manager "github.com/EcoPowerHub/EMS/driver"
 	"github.com/EcoPowerHub/EMS/utils"
+	context "github.com/EcoPowerHub/context/pkg"
 )
 
 var ems core
@@ -15,6 +16,7 @@ var ems core
 type core struct {
 	configuration config.EMS
 	manager       *manager.Manager
+	context       *context.Context
 }
 
 // Start reads the configuration
@@ -35,6 +37,14 @@ func Start(confpath string) {
 	if err != nil {
 		// #8
 		fmt.Printf("Failed to create managerEquipment: %s\n", err)
+		return
+	}
+
+	// Create the context
+	ems.context, err = context.New(ems.configuration.Contexts)
+	if err != nil {
+		// #14
+		fmt.Printf("Failed to create contexts: %s\n", err)
 		return
 	}
 
