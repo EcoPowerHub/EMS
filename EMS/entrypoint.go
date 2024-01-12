@@ -8,7 +8,7 @@ import (
 	"github.com/EcoPowerHub/EMS/config"
 	manager "github.com/EcoPowerHub/EMS/driver"
 	"github.com/EcoPowerHub/EMS/utils"
-	context "github.com/EcoPowerHub/context/pkg"
+	pkgContext "github.com/EcoPowerHub/context/pkg"
 )
 
 var ems core
@@ -16,7 +16,7 @@ var ems core
 type core struct {
 	configuration config.EMS
 	manager       *manager.Manager
-	context       *context.Context
+	context       *pkgContext.Context
 }
 
 // Start reads the configuration
@@ -24,9 +24,6 @@ func Start(confpath string) {
 	var (
 		err error
 	)
-
-	// Create the context
-	context.New(ems.configuration.Contexts)
 
 	err = utils.ReadJsonFile(confpath, &ems.configuration)
 	if err != nil {
@@ -50,6 +47,14 @@ func Start(confpath string) {
 		return
 	}
 
+	// Create the context
+	ems.context, err = pkgContext.New(ems.configuration.Contexts)
+	if err != nil {
+		// #14
+		fmt.Printf("Failed to create contexts: %s\n", err)
+		return
+	}
+
 	// While cycle isn't finished
 	for {
 		// Executing all drivers
@@ -59,8 +64,6 @@ func Start(confpath string) {
 		// Reading drivers values
 		readings := managerEquipment.Read()
 		fmt.Printf("Readings %s\n", readings)
-		bla, _ := ems.context.Get("ess1")
-		fmt.Printf("%s\n", bla)
 		time.Sleep(1 * time.Second)
 	}
 
