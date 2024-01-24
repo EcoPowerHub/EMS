@@ -3,30 +3,35 @@ package equipment
 import (
 	"fmt"
 
-	"github.com/EcoPowerHub/EMS/common"
 	"github.com/EcoPowerHub/EMS/config"
 	pv "github.com/EcoPowerHub/EMS/driver/drivers/generic/PV"
+	"github.com/EcoPowerHub/shared/pkg/objects"
 )
 
 type Driver interface {
 	Configure() error
 	AddOrRefreshData() error
-	State() common.EquipmentState
+	State() objects.DriverState
 	Read() map[string]map[string]any
 	Write(map[string]map[string]any) error
 }
 
-// List equipments json to list Equipments
-func Instanciate(listEquipmentsJson []config.Equipment) ([]Driver, error) {
+type ManagerObject struct {
+	Driver     Driver
+	Equipement config.Equipment
+}
 
-	equipments := make([]Driver, len(listEquipmentsJson))
+// List equipments json to list Equipments
+func Instanciate(listEquipmentsJson []config.Equipment) ([]ManagerObject, error) {
+
+	equipments := make([]ManagerObject, len(listEquipmentsJson))
 
 	for i, equipmentInList := range listEquipmentsJson {
 		newEquipment, err := newDriver(equipmentInList)
 		if err != nil {
 			return nil, err
 		}
-		equipments[i] = newEquipment
+		equipments[i].Driver, equipments[i].Equipement = newEquipment, equipmentInList
 	}
 	return equipments, nil
 }

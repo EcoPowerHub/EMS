@@ -5,22 +5,30 @@
       "id": "generic/pv",
       "description": "equipmentPv",
       "host": "localhost:5502",
-      "name": "pv"
+      "name": "pv",
+      "inputs": {},
+      "outputs": {
+        "pv": {
+          "pv": {
+            "ref": "pv1"
+          }
+        }
+      }
     }
   ],
   "context": {
     "objects": {
-      "pv1": {
-        "type": "pv",
-        "description": "Description for ObjectType1"
-      },
-      "status2": {
+      "ref_from_context": {
         "type": "status",
         "description": "Description for ObjectType2"
       },
       "ess1": {
         "type": "battery",
         "description": "Description for ObjectType3"
+      },
+      "pv1": {
+        "type": "pv",
+        "description": "Ouai les gars c'est le pv, ça photovoltaïque un max ou quoi ? 🤙"
       }
     }
   }
