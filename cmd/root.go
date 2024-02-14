@@ -18,7 +18,7 @@ var (
 		Long: `long description (to define)`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if cfgFile == "" {
-				// #8
+
 				log.Fatal("Missing required flag: --conf.")
 				_ = cmd.Help()
 				os.Exit(1)
