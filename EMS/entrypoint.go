@@ -1,7 +1,6 @@
 package ems
 
 import (
-	"bytes"
 	"fmt"
 	"time"
 
@@ -40,13 +39,6 @@ func Start(confpath string) {
 		zerolog.SetGlobalLevel(zerolog.TraceLevel)
 	}
 
-	// Create a managerEquipment with the parsed config
-	managerEquipment, err := manager.New(ems.configuration.Equipments)
-	if err != nil {
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create managerEquipment")
-		return
-	}
-
 	// Create the context
 	ems.context, err = context.New(ems.configuration.Contexts)
 	if err != nil {
@@ -55,8 +47,16 @@ func Start(confpath string) {
 		return
 	}
 
+	// Create a managerEquipment with the parsed config
+	managerEquipment, err := manager.New(ems.configuration.Equipments, ems.context)
+	if err != nil {
+		// #8
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create managerEquipment")
+		return
+	}
+
 	ems.manager = managerEquipment
-	if err := managerEquipment.SetupEquipments(); err != nil {
+	if err := ems.manager.SetupEquipments(); err != nil {
 		log.Fatal().Str("Error:", err.Error()).Msg("Failed to setup equipments")
 		return
 	}
@@ -64,22 +64,22 @@ func Start(confpath string) {
 	// While cycle isn't finished
 	for {
 		// Executing all drivers
-		if err := managerEquipment.InitCycle(); err != nil {
+		if err := ems.manager.InitCycle(); err != nil {
 			return
 		}
+
 		// Reading drivers values
-		readings := managerEquipment.Read()
-		log.Trace().Str("Reading", createKeyValuePairs(readings)).Msg("Readings")
+		err = ems.manager.Read()
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		// Writing the context outputs to drivers
+		err = managerEquipment.Write()
+
+		fmt.Printf("Readings %s\n", ems.context)
+		fmt.Printf("Writings error %s\n", err)
 		time.Sleep(1 * time.Second)
 	}
 
-}
-
-// Convert map to string for log purposes
-func createKeyValuePairs(m map[string]map[string]any) string {
-	b := new(bytes.Buffer)
-	for key, value := range m {
-		fmt.Fprintf(b, "%s=\"%s\"\n", key, value)
-	}
-	return b.String()
 }
