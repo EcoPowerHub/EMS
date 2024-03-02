@@ -96,7 +96,7 @@ func (m *Manager) InitCycle() (err error) {
 	)
 	// Launch all Equipments
 	for _, e := range m.Objects {
-		if e.Driver.State().Value != objects.EquipmentStateOnline {
+		if e.Driver.State().Value != objects.DriverStateOnline {
 			// #8
 			fmt.Printf("Equipment is not online, skipping")
 			continue

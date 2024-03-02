@@ -1,5 +1,34 @@
 {
   "debug": true,
+  "context": {
+    "objects": {
+      "pv1": {
+        "type": "pv",
+        "description": "Ouai les gars c'est le pv, ça photovoltaïque un max ou quoi ? 🤙"
+      },
+      "poc": {
+        "type": "metric",
+        "description": "Ouai les gars c'est le poc, ça mesure un max ou quoi ? 🤙",
+        "init_value": {
+          "value": 1000
+        }
+      },
+      "limit": {
+        "type": "metric",
+        "description": "Ouai les gars c'est le limit, ça limite un max ou quoi ? 🤙",
+        "init_value": {
+          "value": 100
+        }
+      },
+      "setpoint": {
+        "type": "setpoint",
+        "description": "Ouai les gars c'est le setpoint, ça setpoint un max ou quoi ? 🤙",
+        "init_value": {
+          "p_kw": 0
+        }
+      }
+    }
+  },
   "equipments": [
     {
       "id": "generic/pv",
@@ -16,19 +45,34 @@
       }
     }
   ],
-  "context": {
-    "objects": {
-      "ref_from_context": {
-        "type": "status",
-        "description": "Description for ObjectType2"
-      },
-      "ess1": {
-        "type": "battery",
-        "description": "Description for ObjectType3"
-      },
-      "pv1": {
-        "type": "pv",
-        "description": "Ouai les gars c'est le pv, ça photovoltaïque un max ou quoi ? 🤙"
+  "services": {
+    "peakshaving": {
+      "id": "peakshaving",
+      "priority": 1,
+      "conf": {
+        "conf": {
+          "pid_controller": {
+            "kp": 0.1,
+            "ki": 0.1,
+            "kd": 0.1,
+            "period": "1s"
+          }
+        },
+        "inputs": {
+          "poc_kW": {
+            "ref": "poc",
+            "attr": "value"
+          },
+          "limit_kW": {
+            "ref": "limit",
+            "attr": "value"
+          }
+        },
+        "outputs": {
+          "setpoint": {
+            "ref": "setpoint"
+          }
+        }
       }
     }
   }

@@ -29,11 +29,11 @@ func (e *Equipment) AddOrRefreshData() error {
 	p_w, err = e.mc.ReadFloat32(0, modbus.INPUT_REGISTER)
 	if err != nil {
 		e.logger.Error().Err(err).Msg("Cannot read register 0")
-		e.state.Value = objects.EquipmentStateUnreachable
+		e.state.Value = objects.DriverStateUnreachable
 		return err
 	}
 
-	e.state.Value = objects.EquipmentStateOnline
+	e.state.Value = objects.DriverStateOnline
 	e.readings.p_w = float64(p_w)
 	e.lastRead = time.Now()
 	return nil
@@ -45,7 +45,7 @@ type readings struct {
 
 func New(host string) *Equipment {
 	return &Equipment{
-		state: objects.DriverState{Value: objects.EquipmentStateInit},
+		state: objects.DriverState{Value: objects.DriverStateInit},
 		host:  host,
 	}
 }
@@ -56,16 +56,16 @@ func (e *Equipment) Configure() (err error) {
 		URL: fmt.Sprintf("tcp://%s", e.host),
 	})
 	if err != nil {
-		e.state.Value = objects.EquipmentStateError
+		e.state.Value = objects.DriverStateError
 		return
 	}
 	// Open connection
 	if err = e.mc.Open(); err != nil {
-		e.state.Value = objects.EquipmentStateError
-		return
+		e.state.Value = objects.DriverStateError
+		return err
 	}
-	e.state.Value = objects.EquipmentStateOnline
-	return
+	e.state.Value = objects.DriverStateOnline
+	return err
 }
 
 func (e *Equipment) State() objects.DriverState {
@@ -77,7 +77,7 @@ func (e *Equipment) Read() map[string]map[string]any {
 		io.KeyPV: {
 			io.KeyPV: objects.PV{
 				P_kW:      e.readings.p_w / 1000.0,
-				Timestamp: e.lastRead.UnixMicro(),
+				Timestamp: time.Now(),
 			},
 		},
 	}

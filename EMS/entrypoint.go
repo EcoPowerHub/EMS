@@ -1,7 +1,6 @@
 package ems
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -9,6 +8,7 @@ import (
 
 	"github.com/EcoPowerHub/EMS/config"
 	manager "github.com/EcoPowerHub/EMS/driver"
+	"github.com/EcoPowerHub/EMS/services"
 	"github.com/EcoPowerHub/EMS/utils"
 	context "github.com/EcoPowerHub/context/pkg"
 )
@@ -16,9 +16,10 @@ import (
 var ems core
 
 type core struct {
-	configuration config.EMS
-	manager       *manager.Manager
-	context       *context.Context
+	configuration    config.EMS
+	equipmentManager *manager.Manager
+	serviceManager   *services.Manager
+	context          *context.Context
 }
 
 // Start reads the configuration
@@ -43,7 +44,7 @@ func Start(confpath string) {
 	ems.context, err = context.New(ems.configuration.Contexts)
 	if err != nil {
 		// #14
-		fmt.Printf("Failed to create contexts: %s\n", err)
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create context")
 		return
 	}
 
@@ -55,30 +56,50 @@ func Start(confpath string) {
 		return
 	}
 
-	ems.manager = managerEquipment
-	if err := ems.manager.SetupEquipments(); err != nil {
+	ems.equipmentManager = managerEquipment
+	if err := ems.equipmentManager.SetupEquipments(); err != nil {
 		log.Fatal().Str("Error:", err.Error()).Msg("Failed to setup equipments")
+		return
+	}
+
+	servicesManager, err := services.New(ems.configuration.Services, ems.context)
+	if err != nil {
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create servicesManager")
+		return
+	}
+
+	ems.serviceManager = servicesManager
+	if err := ems.serviceManager.SetupServices(); err != nil {
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to setup services")
 		return
 	}
 
 	// While cycle isn't finished
 	for {
 		// Executing all drivers
-		if err := ems.manager.InitCycle(); err != nil {
+		if err := ems.equipmentManager.InitCycle(); err != nil {
 			return
 		}
 
 		// Reading drivers values
-		err = ems.manager.Read()
+		err = ems.equipmentManager.Read()
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal().Str("Error:", err.Error()).Msg("Failed to read")
+			return
+		}
+
+		if err := ems.serviceManager.UpdateServices(); err != nil {
+			log.Fatal().Str("Error:", err.Error()).Msg("Failed to update services")
+			return
 		}
 
 		// Writing the context outputs to drivers
-		err = managerEquipment.Write()
+		err = ems.equipmentManager.Write()
+		if err != nil {
+			log.Fatal().Str("Error:", err.Error()).Msg("Failed to write")
+			return
+		}
 
-		fmt.Printf("Readings %s\n", ems.context)
-		fmt.Printf("Writings error %s\n", err)
 		time.Sleep(1 * time.Second)
 	}
 

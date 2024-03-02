@@ -5,16 +5,19 @@ go 1.21
 toolchain go1.21.3
 
 require (
-	github.com/EcoPowerHub/context v0.1.2
-	github.com/EcoPowerHub/shared v0.1.2
+	github.com/EcoPowerHub/context v0.1.3
+	github.com/EcoPowerHub/shared v0.1.4
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/rs/zerolog v1.32.0
 	github.com/simonvetter/modbus v1.6.0
 	github.com/spf13/cobra v1.8.0
+	go.einride.tech/pid v0.1.1
 	golang.org/x/sync v0.6.0
 )
 
 require (
 	github.com/goburrow/serial v0.1.0 // indirect
+	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
