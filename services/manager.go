@@ -7,6 +7,7 @@ import (
 	context "github.com/EcoPowerHub/context/pkg"
 
 	"github.com/EcoPowerHub/EMS/config"
+	eval "github.com/EcoPowerHub/EMS/services/gval"
 	"github.com/EcoPowerHub/EMS/services/peakshaving"
 	"github.com/rs/zerolog"
 )
@@ -70,6 +71,8 @@ func (m *Manager) newService(id string) (Service, error) {
 	switch id {
 	case "peakshaving":
 		return peakshaving.New(zerolog.Logger{}, m.ctx), nil
+	case "gval":
+		return eval.New(zerolog.Logger{}, m.ctx), nil
 	default:
 		return nil, fmt.Errorf("unknown service id: %s", id)
 	}
