@@ -5,8 +5,8 @@ go 1.21
 toolchain go1.21.3
 
 require (
-	github.com/EcoPowerHub/context v0.1.3
-	github.com/EcoPowerHub/shared v0.1.4
+	github.com/EcoPowerHub/context v0.1.4
+	github.com/EcoPowerHub/shared v0.1.5
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/rs/zerolog v1.32.0
 	github.com/simonvetter/modbus v1.6.0

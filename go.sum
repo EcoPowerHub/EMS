@@ -1,7 +1,7 @@
-github.com/EcoPowerHub/context v0.1.3 h1:mPfYii8cyekB5fEM9nbbg8U65XS1PkjNfq6pkHR4RnM=
-github.com/EcoPowerHub/context v0.1.3/go.mod h1:jxLyAjf/Jb/UCoSJuvhUhMYwZ1xh8Cw5teJgHYzoEQ0=
-github.com/EcoPowerHub/shared v0.1.4 h1:NF/5aEZtlvD/xsCgnqaDgHKoOiwL8+9VYBDeahEejBU=
-github.com/EcoPowerHub/shared v0.1.4/go.mod h1:FT6mGco4ZV6LcnvxWy4s/D/BokmM52Na70iK3nF1/wc=
+github.com/EcoPowerHub/context v0.1.4 h1:ATIqIo9bNHB45udDrDcg1SHSNNQD9RUqko0PFp/J8i8=
+github.com/EcoPowerHub/context v0.1.4/go.mod h1:lDctuHDqZgzrPJk7Xc/pnzizla5eiE4JUBdnnOmjAlA=
+github.com/EcoPowerHub/shared v0.1.5 h1:8FMv3AiFJ4YEZRO/y1csXqZDeN277Hj7pCFGYXb9bSA=
+github.com/EcoPowerHub/shared v0.1.5/go.mod h1:FT6mGco4ZV6LcnvxWy4s/D/BokmM52Na70iK3nF1/wc=
 github.com/coreos/go-systemd/v22 v22.5.0/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
 github.com/cpuguy83/go-md2man/v2 v2.0.3/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/goburrow/serial v0.1.0 h1:v2T1SQa/dlUqQiYIT8+Cu7YolfqAi3K96UmhwYyuSrA=
