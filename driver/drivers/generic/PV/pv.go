@@ -75,7 +75,7 @@ func (e *Equipment) State() objects.DriverState {
 func (e *Equipment) Read() map[string]map[string]any {
 	return map[string]map[string]any{
 		io.KeyPV: {
-			io.KeyPV: objects.PV{
+			io.KeyPV: &objects.PV{
 				P_kW:      e.readings.p_w / 1000.0,
 				Timestamp: time.Now(),
 			},

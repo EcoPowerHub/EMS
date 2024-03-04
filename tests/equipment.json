@@ -26,6 +26,14 @@
         "init_value": {
           "p_kw": 0
         }
+      },
+      "load":{
+        "type": "metric",
+        "description": "Ouai les gars c'est le load, ça consomme un max ou quoi ? 🤙"
+      },
+      "ess":{
+        "type": "battery",
+        "description": "Ouai les gars c'est l'ess, ça stocke un max ou quoi ? 🤙"
       }
     }
   },
@@ -71,6 +79,31 @@
         "outputs": {
           "setpoint": {
             "ref": "setpoint"
+          }
+        }
+      }
+    },
+    "eval":{
+      "id": "gval",
+      "priority": 2,
+      "conf": {
+        "conf": {
+          "expression": "poc_kW - ess"
+        },
+        "inputs": {
+          "poc_kW": {
+            "ref": "poc",
+            "attr": "value"
+          },
+          "ess": {
+            "ref": "pv1",
+            "attr": "p_kw"
+          }
+        },
+        "outputs": {
+          "load": {
+            "ref": "load",
+            "attr": "value"
           }
         }
       }
