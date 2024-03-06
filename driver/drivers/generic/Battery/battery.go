@@ -31,14 +31,14 @@ func (e *Equipment) AddOrRefreshData() error {
 	singleAdrr, err = e.mc.ReadRegisters(0, 2, modbus.INPUT_REGISTER)
 	if err != nil {
 		e.state.Value = objects.DriverStateUnreachable
-		return fmt.Errorf("Unable to read soc and soh: %v", err)
+		return fmt.Errorf("unable to read soc and soh: %v", err)
 	}
 
 	// read register 2 and 4
 	multiAdrr, err = e.mc.ReadFloat32s(2, 2, modbus.INPUT_REGISTER)
 	if err != nil {
 		e.state.Value = objects.DriverStateUnreachable
-		return fmt.Errorf("Unable to read capacity_Wh and Active Power: ", err)
+		return fmt.Errorf("unable to read capacity_Wh and Active Power: %v", err)
 	}
 
 	e.readings = readings{
@@ -104,13 +104,13 @@ func (e *Equipment) Read() map[string]map[string]any {
 func (e *Equipment) Write(writings map[string]map[string]any) error {
 	setpoint, ok := writings[io.KeySetpoint][io.KeySetpoint]
 	if !ok {
-		return fmt.Errorf("Unable to get setpoint.")
+		return fmt.Errorf("unable to get setpoint")
 	}
 	a := setpoint.(*objects.Setpoint)
 
 	err := e.mc.WriteFloat32(0, float32(a.P_kW)*1000.0)
 	if err != nil {
-		return fmt.Errorf("Error while writing the setpoint: %v", err)
+		return fmt.Errorf("error while writing the setpoint: %v", err)
 	}
 	return nil
 }
