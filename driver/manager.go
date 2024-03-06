@@ -60,7 +60,7 @@ func (m *Manager) Write() error {
 	)
 
 	for _, d := range m.Objects {
-		for key1, value1 := range d.Equipement.Outputs {
+		for key1, value1 := range d.Equipement.Inputs {
 			for key, value := range value1 {
 				ctxValue, err = m.ctx.Get(value.Ref)
 				writings = map[string]map[string]any{
