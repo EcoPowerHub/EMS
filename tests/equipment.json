@@ -39,15 +39,21 @@
   },
   "equipments": [
     {
-      "id": "generic/pv",
-      "description": "equipmentPv",
+      "id": "generic/battery",
+      "description": "equipmentBatterie",
       "host": "localhost:5502",
-      "name": "pv",
-      "inputs": {},
+      "name": "battery",
+      "inputs": {
+        "setpoint": {
+          "setpoint":{
+            "ref": "setpoint"
+          }
+        }
+      },
       "outputs": {
-        "pv": {
-          "pv": {
-            "ref": "pv1"
+        "battery": {
+          "battery": {
+            "ref": "ess"
           }
         }
       }
@@ -96,7 +102,7 @@
             "attr": "value"
           },
           "ess": {
-            "ref": "pv1",
+            "ref": "ess",
             "attr": "p_kw"
           }
         },
