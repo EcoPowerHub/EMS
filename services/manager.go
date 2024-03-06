@@ -7,8 +7,8 @@ import (
 	context "github.com/EcoPowerHub/context/pkg"
 
 	"github.com/EcoPowerHub/EMS/config"
-	eval "github.com/EcoPowerHub/EMS/services/gval"
-	"github.com/EcoPowerHub/EMS/services/peakshaving"
+	eval "github.com/EcoPowerHub/EMS/services/services/gval"
+	"github.com/EcoPowerHub/EMS/services/services/peakshaving"
 	"github.com/rs/zerolog"
 )
 
