@@ -1,9 +1,9 @@
 {
   "debug": true,
-  "equipments": [
+  "drivers": [
     {
       "id": "generic/pv",
-      "description": "equipmentPv",
+      "description": "driverPv",
       "host": "localhost:5502",
       "name": "pv",
       "inputs": {},

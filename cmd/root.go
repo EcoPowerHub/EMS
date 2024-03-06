@@ -35,8 +35,7 @@ func Execute() {
 	}
 
 	// Start EMS if no error
-	ems.Start(cfgFile)
-
+	ems.New(cfgFile).Start()
 }
 
 func init() {

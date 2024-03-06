@@ -8,7 +8,7 @@ import (
 This package defines how is structured the complete config file
 */
 type EMS struct {
-	Equipments []Equipment           `json:"equipments"`
-	Contexts   context.Configuration `json:"context"`
-	Debug      bool                  `json:"debug"`
+	Drivers  []Driver              `json:"drivers"`
+	Contexts context.Configuration `json:"context"`
+	Debug    bool                  `json:"debug"`
 }

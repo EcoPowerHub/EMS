@@ -1,4 +1,4 @@
-package equipment
+package driver
 
 import (
 	"fmt"
@@ -16,31 +16,32 @@ type Driver interface {
 	Write(map[string]map[string]any) error
 }
 
-type ManagerObject struct {
-	Driver     Driver
-	Equipement config.Equipment
+type Manager struct {
+	Drivers []Driver
+	Conf    config.Driver
 }
 
-// List equipments json to list Equipments
-func Instanciate(listEquipmentsJson []config.Equipment) ([]ManagerObject, error) {
+// List drivers json to list Drivers
+func (m *Manager) Instanciate(listDriverJson []config.Driver) ([]Driver, error) {
 
-	equipments := make([]ManagerObject, len(listEquipmentsJson))
+	drivers := make([]Driver, len(listDriverJson))
 
-	for i, equipmentInList := range listEquipmentsJson {
-		newEquipment, err := newDriver(equipmentInList)
+	for _, driverInList := range listDriverJson {
+		newDriver, err := newDriver(driverInList)
 		if err != nil {
 			return nil, err
 		}
-		equipments[i].Driver, equipments[i].Equipement = newEquipment, equipmentInList
+		drivers = append(drivers, newDriver)
 	}
-	return equipments, nil
+
+	return drivers, nil
 }
 
-func newDriver(equipmentJson config.Equipment) (Driver, error) {
-	switch equipmentJson.Id {
+func newDriver(driverJson config.Driver) (Driver, error) {
+	switch driverJson.Id {
 	case "generic/pv":
-		return pv.New(equipmentJson.Host), nil
+		return pv.New(driverJson.Host), nil
 	default:
-		return nil, fmt.Errorf("unsupported driver type: %s", equipmentJson.Id)
+		return nil, fmt.Errorf("unsupported driver type: %s", driverJson.Id)
 	}
 }

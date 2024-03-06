@@ -11,7 +11,7 @@ import (
 	"github.com/EcoPowerHub/shared/pkg/objects"
 )
 
-type Equipment struct {
+type Driver struct {
 	logger   zerolog.Logger
 	mc       *modbus.ModbusClient
 	state    objects.DriverState
@@ -20,7 +20,7 @@ type Equipment struct {
 	lastRead time.Time
 }
 
-func (e *Equipment) AddOrRefreshData() error {
+func (e *Driver) AddOrRefreshData() error {
 	var (
 		err error
 		p_w float32
@@ -43,14 +43,14 @@ type readings struct {
 	p_w float64
 }
 
-func New(host string) *Equipment {
-	return &Equipment{
+func New(host string) *Driver {
+	return &Driver{
 		state: objects.DriverState{Value: objects.EquipmentStateInit},
 		host:  host,
 	}
 }
 
-func (e *Equipment) Configure() (err error) {
+func (e *Driver) Configure() (err error) {
 	// Create modbus client
 	e.mc, err = modbus.NewClient(&modbus.ClientConfiguration{
 		URL: fmt.Sprintf("tcp://%s", e.host),
@@ -68,11 +68,11 @@ func (e *Equipment) Configure() (err error) {
 	return
 }
 
-func (e *Equipment) State() objects.DriverState {
+func (e *Driver) State() objects.DriverState {
 	return e.state
 }
 
-func (e *Equipment) Read() map[string]map[string]any {
+func (e *Driver) Read() map[string]map[string]any {
 	return map[string]map[string]any{
 		io.KeyPV: {
 			io.KeyPV: objects.PV{
@@ -83,6 +83,6 @@ func (e *Equipment) Read() map[string]map[string]any {
 	}
 }
 
-func (e *Equipment) Write(_ map[string]map[string]any) error {
+func (e *Driver) Write(_ map[string]map[string]any) error {
 	return fmt.Errorf("Driver does not support writing")
 }
