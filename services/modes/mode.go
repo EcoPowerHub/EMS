@@ -2,6 +2,7 @@ package modes
 
 import (
 	"fmt"
+	"slices"
 
 	context "github.com/EcoPowerHub/context/pkg"
 	"github.com/EcoPowerHub/shared/pkg/objects"
@@ -21,7 +22,8 @@ type Manager struct {
 }
 
 func (m *Manager) Runnable(name string) bool {
-	return false
+	// Check if the service is enabled in the actual mode
+	return slices.Contains(m.actualMode.EnabledServices, name)
 }
 
 func (m *Manager) Update() error {
@@ -30,14 +32,14 @@ func (m *Manager) Update() error {
 		err    error
 	)
 
-	for key, mode := range m.conf.Modes {
+	for _, mode := range m.conf.Modes {
 		if mode.ConditionRef == "default" {
 			m.actualMode = mode
 			return nil
 		}
 		status, err = m.ctx.Status(mode.ConditionRef)
 		if err != nil {
-			return fmt.Errorf("failed to get condition for mode %s: %s", key, err)
+			return fmt.Errorf("failed to get condition for mode %s: %s", mode.Name, err)
 		}
 
 		if status.Value == 1 {

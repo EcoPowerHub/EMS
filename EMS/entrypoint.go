@@ -62,7 +62,7 @@ func Start(confpath string) {
 		return
 	}
 
-	servicesManager, err := services.New(ems.configuration.Services, ems.context)
+	servicesManager, err := services.New(ems.configuration.Services, ems.context, ems.configuration.Modes)
 	if err != nil {
 		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create servicesManager")
 		return

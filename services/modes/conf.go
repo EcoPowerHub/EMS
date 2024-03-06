@@ -1,7 +1,7 @@
 package modes
 
 type Conf struct {
-	Modes map[string]mode `json:"modes"`
+	Modes []mode `json:"modes"`
 }
 
 type mode struct {

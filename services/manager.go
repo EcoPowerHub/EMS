@@ -7,6 +7,7 @@ import (
 	context "github.com/EcoPowerHub/context/pkg"
 
 	"github.com/EcoPowerHub/EMS/config"
+	"github.com/EcoPowerHub/EMS/services/modes"
 	eval "github.com/EcoPowerHub/EMS/services/services/gval"
 	"github.com/EcoPowerHub/EMS/services/services/peakshaving"
 	"github.com/rs/zerolog"
@@ -22,13 +23,20 @@ type Manager struct {
 	conf           map[string]config.Service
 	services       map[string]Service
 	sortedServices []string
+	modeManager    *modes.Manager
 }
 
-func New(conf map[string]config.Service, ctx *context.Context) (*Manager, error) {
+func New(conf map[string]config.Service, ctx *context.Context, modeConf modes.Conf) (*Manager, error) {
+	modeManager, err := modes.New(modeConf, ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create mode manager: %s", err)
+	}
+
 	return &Manager{
-		conf:     conf,
-		services: make(map[string]Service),
-		ctx:      ctx,
+		conf:        conf,
+		services:    make(map[string]Service),
+		ctx:         ctx,
+		modeManager: modeManager,
 	}, nil
 }
 
@@ -59,11 +67,21 @@ func (m *Manager) SetupServices() error {
 }
 
 func (m *Manager) UpdateServices() error {
+	// Update the mode
+	if err := m.modeManager.Update(); err != nil {
+		return fmt.Errorf("failed to update mode: %s", err)
+	}
+
+	// Loop through services and update thoses contained in the actual mode
 	for _, k := range m.sortedServices {
-		if err := m.services[k].Update(); err != nil {
-			return fmt.Errorf("failed to update service %s: %s", k, err)
+		// If the service is not enabled, skip it
+		if m.modeManager.Runnable(k) {
+			if err := m.services[k].Update(); err != nil {
+				return fmt.Errorf("failed to update service %s: %s", k, err)
+			}
 		}
 	}
+
 	return nil
 }
 
