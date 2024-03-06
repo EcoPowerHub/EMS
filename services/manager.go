@@ -5,6 +5,7 @@ import (
 	"sort"
 
 	context "github.com/EcoPowerHub/context/pkg"
+	"golang.org/x/sync/errgroup"
 
 	"github.com/EcoPowerHub/EMS/config"
 	"github.com/EcoPowerHub/EMS/services/modes"
@@ -22,7 +23,7 @@ type Manager struct {
 	ctx            *context.Context
 	conf           map[string]config.Service
 	services       map[string]Service
-	sortedServices []string
+	sortedServices map[int][]string
 	modeManager    *modes.Manager
 }
 
@@ -40,6 +41,13 @@ func New(conf map[string]config.Service, ctx *context.Context, modeConf modes.Co
 	}, nil
 }
 
+// SetupServices sets up the services based on the configuration provided.
+// It creates and configures each service, sorts them by priority, and stores them in the Manager.
+// Returns an error if there is any failure during the setup process.
+// SetupServices initializes and configures the services based on the provided configuration.
+// It iterates over the service configurations, creates new service instances, and configures them.
+// The services are then sorted by priority and stored in the `sortedServices` map.
+// Returns an error if there is any failure in creating or configuring the services.
 func (m *Manager) SetupServices() error {
 	for name, serviceConf := range m.conf {
 		service, err := m.newService(serviceConf.Id)
@@ -54,19 +62,45 @@ func (m *Manager) SetupServices() error {
 		m.services[name] = service
 	}
 
+	priorityArray := make([]int, 0)
 	// Sort services by priority
-	for k := range m.conf {
-		m.sortedServices = append(m.sortedServices, k)
+	for _, service := range m.conf {
+		priorityArray = append(priorityArray, int(service.Priority))
 	}
 
-	sort.Slice(m.sortedServices, func(i, j int) bool {
-		return m.conf[m.sortedServices[i]].Priority < m.conf[m.sortedServices[j]].Priority
-	})
+	sort.Ints(priorityArray)
+
+	uniquePriorityArray := make([]int, 0)
+	for _, priority := range priorityArray {
+		found := false
+		for _, uniquePriority := range uniquePriorityArray {
+			if priority == uniquePriority {
+				found = true
+				break
+			}
+		}
+		if !found {
+			uniquePriorityArray = append(uniquePriorityArray, priority)
+		}
+	}
+
+	for _, uniquePriority := range uniquePriorityArray {
+		serviceArray := []string{}
+		for service := range m.services {
+			if int(m.conf[service].Priority) == uniquePriority {
+				serviceArray = append(serviceArray, service)
+			}
+		}
+		m.sortedServices[uniquePriority] = serviceArray
+	}
 
 	return nil
 }
 
-func (m *Manager) UpdateServices() error {
+func (m *Manager) UpdateServices() (err error) {
+	var (
+		g = errgroup.Group{}
+	)
 	// Update the mode
 	if err := m.modeManager.Update(); err != nil {
 		return fmt.Errorf("failed to update mode: %s", err)
@@ -74,14 +108,17 @@ func (m *Manager) UpdateServices() error {
 
 	// Loop through services and update thoses contained in the actual mode
 	for _, k := range m.sortedServices {
-		// If the service is not enabled, skip it
-		if m.modeManager.Runnable(k) {
-			if err := m.services[k].Update(); err != nil {
-				return fmt.Errorf("failed to update service %s: %s", k, err)
+		for _, service := range k {
+			// If the service is not enabled, skip it
+			if m.modeManager.Runnable(service) {
+				g.Go(m.services[service].Update)
 			}
 		}
+		// Wait for all Equipments to finish
+		if err = g.Wait(); err != nil {
+			return err
+		}
 	}
-
 	return nil
 }
 

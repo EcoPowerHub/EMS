@@ -60,7 +60,7 @@
       }
     }
   ],
-  
+
   "modes": {
     "modes":[
       {
@@ -71,7 +71,7 @@
       }
     ]
   },
-  
+
   "services": {
     "peakshaving": {
       "id": "peakshaving",
