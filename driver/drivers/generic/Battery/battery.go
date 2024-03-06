@@ -110,7 +110,7 @@ func (e *Equipment) Write(writings map[string]map[string]any) error {
 
 	err := e.mc.WriteFloat32(0, float32(a.P_kW)*1000.0)
 	if err != nil {
-		return fmt.Errorf("Error while writing the setpoint ", err)
+		return fmt.Errorf("Error while writing the setpoint: %v", err)
 	}
 	return nil
 }
