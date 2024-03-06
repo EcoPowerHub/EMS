@@ -1,5 +1,7 @@
 github.com/EcoPowerHub/context v0.1.4 h1:ATIqIo9bNHB45udDrDcg1SHSNNQD9RUqko0PFp/J8i8=
 github.com/EcoPowerHub/context v0.1.4/go.mod h1:lDctuHDqZgzrPJk7Xc/pnzizla5eiE4JUBdnnOmjAlA=
+github.com/EcoPowerHub/context v0.1.5 h1:l65iD3BSTmDz2BM7ZEOe1eEoCQvIphPq+al0wlI79ro=
+github.com/EcoPowerHub/context v0.1.5/go.mod h1:lDctuHDqZgzrPJk7Xc/pnzizla5eiE4JUBdnnOmjAlA=
 github.com/EcoPowerHub/shared v0.1.5 h1:8FMv3AiFJ4YEZRO/y1csXqZDeN277Hj7pCFGYXb9bSA=
 github.com/EcoPowerHub/shared v0.1.5/go.mod h1:FT6mGco4ZV6LcnvxWy4s/D/BokmM52Na70iK3nF1/wc=
 github.com/PaesslerAG/gval v1.2.2 h1:Y7iBzhgE09IGTt5QgGQ2IdaYYYOU134YGHBThD+wm9E=
