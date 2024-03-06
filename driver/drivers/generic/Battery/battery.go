@@ -31,7 +31,7 @@ func (e *Equipment) AddOrRefreshData() error {
 	singleAdrr, err = e.mc.ReadRegisters(0, 2, modbus.INPUT_REGISTER)
 	if err != nil {
 		e.state.Value = objects.DriverStateUnreachable
-		return fmt.Errorf("Unable to read soc and soh: ", err)
+		return fmt.Errorf("Unable to read soc and soh: %v", err)
 	}
 
 	// read register 2 and 4
