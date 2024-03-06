@@ -33,6 +33,9 @@ func ValidExpression(expression string) (bool, error) {
 	return true, nil
 }
 
+// ToMetric converts a value of any type to a Metric object.
+// The kind parameter specifies the reflect.Kind of the value.
+// It returns a pointer to a Metric object and an error, if any.
 func ToMetric(value any, kind reflect.Kind) (*objects.Metric, error) {
 	switch kind {
 	case reflect.Float64:
