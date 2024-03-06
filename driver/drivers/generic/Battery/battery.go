@@ -72,7 +72,7 @@ func (e *Equipment) Configure() (err error) {
 	})
 	if err != nil {
 		e.state.Value = objects.DriverStateError
-		return
+		return err
 	}
 	// Open connection
 	if err = e.mc.Open(); err != nil {
