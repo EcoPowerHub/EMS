@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/rs/zerolog"
 	"github.com/simonvetter/modbus"
 
 	"github.com/EcoPowerHub/shared/pkg/io"
@@ -12,7 +11,6 @@ import (
 )
 
 type Equipment struct {
-	logger   zerolog.Logger
 	mc       *modbus.ModbusClient
 	state    objects.DriverState
 	host     string

@@ -74,7 +74,7 @@ func (m *Manager) Write() error {
 			}
 		}
 		if d.Driver.Write(writings) != nil {
-			return err
+			continue
 		}
 	}
 	return nil

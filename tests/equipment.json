@@ -27,28 +27,31 @@
           "p_kw": 0
         }
       },
-      "load":{
-        "type": "metric",
-        "description": "Ouai les gars c'est le load, ça consomme un max ou quoi ? 🤙"
-      },
       "ess":{
         "type": "battery",
         "description": "Ouai les gars c'est l'ess, ça stocke un max ou quoi ? 🤙"
-      },
-      "battery_status":{
-        "type": "status",
-        "description": "Ouai les gars c'est le status, ça status un max ou quoi ? 🤙",
-        "init_value": {
-          "value": 1
-        }
       }
     }
   },
   "equipments": [
     {
+      "id": "generic/pv",
+      "description": "equipmentPv",
+      "host": "localhost:5502",
+      "name": "pv",
+      "inputs": {},
+      "outputs": {
+        "pv": {
+          "pv": {
+            "ref": "pv1"
+          }
+        }
+      }
+    },
+    {
       "id": "generic/battery",
       "description": "equipmentBatterie",
-      "host": "localhost:5502",
+      "host": "localhost:5503",
       "name": "battery",
       "inputs": {
         "setpoint": {
@@ -64,76 +67,36 @@
           }
         }
       }
+    },
+    {
+      "id": "generic/poc",
+      "description": "equipmentPoc",
+      "host": "localhost:5504",
+      "name": "poc",
+      "inputs": {},
+      "outputs": {
+        "metric": {
+          "metric": {
+            "ref": "poc"
+          }
+        }
+      }
     }
   ],
-  
+
   "modes": {
     "modes":[
       {
         "name":"peakshaving",
         "description":"Ouai les gars c'est le peakshaving, ça shave un max ou quoi ? 🤙",
-        "enabledServices":["peakshaving","eval"],
-        "condition":"battery_status"
+        "enabledServices":["peakshaving"],
+        "condition":"default"
       }
     ]
   },
-  
+
   "services": {
     "peakshaving": {
-      "id": "peakshaving",
-      "priority": 1,
-      "conf": {
-        "conf": {
-          "pid_controller": {
-            "kp": 0.1,
-            "ki": 0.1,
-            "kd": 0.1,
-            "period": "1s"
-          }
-        },
-        "inputs": {
-          "poc_kW": {
-            "ref": "poc",
-            "attr": "value"
-          },
-          "limit_kW": {
-            "ref": "limit",
-            "attr": "value"
-          }
-        },
-        "outputs": {
-          "setpoint": {
-            "ref": "setpoint"
-          }
-        }
-      }
-    },
-    "eval":{
-      "id": "gval",
-      "priority": 2,
-      "conf": {
-        "conf": {
-          "expression": "poc_kW > 30 ? 1 : 0"
-        },
-        "inputs": {
-          "poc_kW": {
-            "ref": "poc",
-            "attr": "value"
-          },
-          "ess": {
-            "ref": "ess",
-            "attr": "p_kw"
-          }
-        },
-        "outputs": {
-          "status": {
-            "ref": "battery_status",
-            "attr": "value"
-          }
-        }
-      }
-    },
-    "peakshaving_2": {
       "id": "peakshaving",
       "priority": 1,
       "conf": {
