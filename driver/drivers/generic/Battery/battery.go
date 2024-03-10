@@ -44,7 +44,7 @@ func (e *Equipment) AddOrRefreshData() error {
 	e.readings = readings{
 		SoC:         float64(singleAdrr[0]),
 		SoH:         float64(singleAdrr[1]),
-		Capacity_Wh: float64(multiAdrr[0] / 1000.0),
+		Capacity_Wh: float64(multiAdrr[0]),
 		P_W:         float64(multiAdrr[1]),
 	}
 	e.lastRead = time.Now()
