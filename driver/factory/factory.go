@@ -6,6 +6,7 @@ import (
 	"github.com/EcoPowerHub/EMS/config"
 	battery "github.com/EcoPowerHub/EMS/driver/drivers/generic/Battery"
 	pv "github.com/EcoPowerHub/EMS/driver/drivers/generic/PV"
+	poc "github.com/EcoPowerHub/EMS/driver/drivers/generic/Poc"
 	"github.com/EcoPowerHub/shared/pkg/objects"
 )
 
@@ -43,6 +44,8 @@ func newDriver(equipmentJson config.Equipment) (Driver, error) {
 		return pv.New(equipmentJson.Host), nil
 	case "generic/battery":
 		return battery.New(equipmentJson.Host), nil
+	case "generic/poc":
+		return poc.New(equipmentJson.Host), nil
 	default:
 		return nil, fmt.Errorf("unsupported driver type: %s", equipmentJson.Id)
 	}
