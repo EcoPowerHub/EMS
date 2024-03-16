@@ -78,6 +78,7 @@ func Start(confpath string) {
 	for {
 		// Executing all drivers
 		if err := ems.equipmentManager.InitCycle(); err != nil {
+			log.Fatal().Str("Error:", err.Error()).Msg("Failed to init cycle")
 			return
 		}
 
