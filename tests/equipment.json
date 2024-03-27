@@ -87,12 +87,6 @@
   "modes": {
     "modes":[
       {
-        "name":"peakshaving",
-        "description":"Ouai les gars c'est le peakshaving, ça shave un max ou quoi ? 🤙",
-        "enabledServices":["peakshaving"],
-        "condition":"default"
-      },
-      {
         "name":"energytarget",
         "description":"Ouai les gars c'est l'energytarget, ça energize un max ou quoi ? 🤙",
         "enabledServices":["energytarget"],
@@ -133,7 +127,7 @@
     },
     "energytarget": {
       "id": "energytarget",
-      "priority": 2,
+      "priority": 1,
       "conf": {
         "conf": {
           "pid_controller": {

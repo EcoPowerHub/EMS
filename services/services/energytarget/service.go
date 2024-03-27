@@ -104,7 +104,7 @@ func (s *service) updateInputs() error {
 	}
 
 	//
-	s.ess_soc, err = obj.GetAttr(s.inputs.Ess.Ref)
+	s.ess_soc, err = obj.GetAttr("soc")
 	if err != nil {
 		return err
 	}
@@ -127,7 +127,7 @@ func (s *service) updateOutputs() error {
 // ValidateIO is a function to ensure that the mandatory inputs and outputs are set
 func (s *service) ValidateIO() error {
 	if s.inputs.Ess.Ref == "" {
-		return fmt.Errorf("Ess ref is not set")
+		return fmt.Errorf("ess ref is not set")
 	}
 	if s.outputs.Setpoint.Ref == "" {
 		return fmt.Errorf("setpoint is not set")

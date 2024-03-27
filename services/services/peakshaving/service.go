@@ -147,10 +147,10 @@ func (m *module) ValidateIO() error {
 		return fmt.Errorf("Poc_kW attr is not set")
 	}
 	if m.inputs.Limit_kW.Ref == "" {
-		return fmt.Errorf("Limit_kW ref is not set")
+		return fmt.Errorf("Target_kW ref is not set")
 	}
 	if m.inputs.Limit_kW.Attr == "" {
-		return fmt.Errorf("Limit_kW attr is not set")
+		return fmt.Errorf("Target_kW attr is not set")
 	}
 	if m.outputs.Setpoint.Ref == "" {
 		return fmt.Errorf("setpoint is not set")
