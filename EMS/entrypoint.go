@@ -77,7 +77,7 @@ func Start(confpath string) {
 	}
 
 	// Create a triposter client
-	ems.triposter = client.New(ems.configuration.Triposter, ems.context)
+	ems.triposter = client.New(ems.configuration.Triposter, ems.context, log.Logger)
 	err = ems.triposter.Configure()
 	if err != nil {
 		log.Fatal().Str("Error:", err.Error()).Msg("Failed to configure triposter")

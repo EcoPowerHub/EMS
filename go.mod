@@ -7,7 +7,7 @@ toolchain go1.22.1
 require (
 	github.com/EcoPowerHub/context v0.1.5
 	github.com/EcoPowerHub/shared v0.1.5
-	github.com/EcoPowerHub/triposter v0.0.0-20240327130924-f0e94b2ed926
+	github.com/EcoPowerHub/triposter v0.0.0-20240327131417-975f03dedc8b
 	github.com/PaesslerAG/gval v1.2.2
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/rs/zerolog v1.32.0
