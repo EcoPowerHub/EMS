@@ -129,28 +129,34 @@
   "triposter": {
     "conf":{
       "host":"http://localhost:8000",
-      "period": "1s"
+      "period": "1s",
+      "site_id": 1
     },
     "objects":{
       "poc": {
         "ref": "poc",
-        "type": "metric"
+        "type": "metric",
+        "source":1
       },
       "limit": {
         "ref": "limit",
-        "type": "metric"
+        "type": "metric",
+        "source":2
       },
       "setpoint": {
         "ref": "setpoint",
-        "type": "setpoint"
+        "type": "setpoint",
+        "source":3
       },
       "pv1":{
         "ref": "pv1",
-        "type": "pv"
+        "type": "pv",
+        "source":4
       },
       "battery":{
         "ref": "ess",
-        "type": "battery"
+        "type": "battery",
+        "source":5
       }
     }
   }
