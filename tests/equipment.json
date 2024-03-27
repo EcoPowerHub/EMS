@@ -125,5 +125,33 @@
         }
       }
     }
+  },
+  "triposter": {
+    "conf":{
+      "host":"http://localhost:8000",
+      "period": "1s"
+    },
+    "objects":{
+      "poc": {
+        "ref": "poc",
+        "type": "metric"
+      },
+      "limit": {
+        "ref": "limit",
+        "type": "metric"
+      },
+      "setpoint": {
+        "ref": "setpoint",
+        "type": "setpoint"
+      },
+      "pv1":{
+        "ref": "pv1",
+        "type": "pv"
+      },
+      "battery":{
+        "ref": "ess",
+        "type": "battery"
+      }
+    }
   }
 }

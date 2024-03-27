@@ -84,6 +84,8 @@ func Start(confpath string) {
 		return
 	}
 
+	go ems.triposter.Start()
+
 	// While cycle isn't finished
 	for {
 		// Executing all drivers
