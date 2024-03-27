@@ -4,6 +4,8 @@ github.com/EcoPowerHub/shared v0.1.5 h1:8FMv3AiFJ4YEZRO/y1csXqZDeN277Hj7pCFGYXb9
 github.com/EcoPowerHub/shared v0.1.5/go.mod h1:FT6mGco4ZV6LcnvxWy4s/D/BokmM52Na70iK3nF1/wc=
 github.com/EcoPowerHub/triposter v0.0.0-20240327104120-a124c9192559 h1:uGvquNTqLJKPwvvHPvgkvp61hH8/Roz/3uvNuS10gJs=
 github.com/EcoPowerHub/triposter v0.0.0-20240327104120-a124c9192559/go.mod h1:gYRfV5z9sWHbj+gq/5lBtX1pDUzJUW3ELNEJDG5VP2Q=
+github.com/EcoPowerHub/triposter v0.0.0-20240327125652-8ea22c92a8be h1:7+Z0PtXznoLJuCgKSHTdQPRtw7ARs06XGMNBjs1OGwA=
+github.com/EcoPowerHub/triposter v0.0.0-20240327125652-8ea22c92a8be/go.mod h1:gYRfV5z9sWHbj+gq/5lBtX1pDUzJUW3ELNEJDG5VP2Q=
 github.com/PaesslerAG/gval v1.2.2 h1:Y7iBzhgE09IGTt5QgGQ2IdaYYYOU134YGHBThD+wm9E=
 github.com/PaesslerAG/gval v1.2.2/go.mod h1:XRFLwvmkTEdYziLdaCeCa5ImcGVrfQbeNUbVR+C6xac=
 github.com/PaesslerAG/jsonpath v0.1.0 h1:gADYeifvlqK3R3i2cR5B4DGgxLXIPb3TRTH1mGi0jPI=
