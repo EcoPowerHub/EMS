@@ -91,6 +91,12 @@
         "description":"Ouai les gars c'est le peakshaving, ça shave un max ou quoi ? 🤙",
         "enabledServices":["peakshaving"],
         "condition":"default"
+      },
+      {
+        "name":"energytarget",
+        "description":"Ouai les gars c'est l'energytarget, ça energize un max ou quoi ? 🤙",
+        "enabledServices":["energytarget"],
+        "condition":"default"
       }
     ]
   },
@@ -116,6 +122,31 @@
           "limit_kW": {
             "ref": "limit",
             "attr": "value"
+          }
+        },
+        "outputs": {
+          "setpoint": {
+            "ref": "setpoint"
+          }
+        }
+      }
+    },
+    "energytarget": {
+      "id": "energytarget",
+      "priority": 2,
+      "conf": {
+        "conf": {
+          "pid_controller": {
+            "kp": 0.1,
+            "ki": 0.1,
+            "kd": 0.1,
+            "period": "1s"
+          },
+          "target": 50
+        },
+        "inputs": {
+          "ess": { 
+            "ref": "ess"
           }
         },
         "outputs": {
