@@ -11,6 +11,7 @@ import (
 	"github.com/EcoPowerHub/EMS/services"
 	"github.com/EcoPowerHub/EMS/utils"
 	context "github.com/EcoPowerHub/context/pkg"
+	client "github.com/EcoPowerHub/triposter/pkg"
 )
 
 var ems core
@@ -20,6 +21,7 @@ type core struct {
 	equipmentManager *manager.Manager
 	serviceManager   *services.Manager
 	context          *context.Context
+	triposter        client.Triposter
 }
 
 // Start reads the configuration
@@ -73,6 +75,16 @@ func Start(confpath string) {
 		log.Fatal().Str("Error:", err.Error()).Msg("Failed to setup services")
 		return
 	}
+
+	// Create a triposter client
+	ems.triposter = client.New(ems.configuration.Triposter, ems.context, log.Logger)
+	err = ems.triposter.Configure()
+	if err != nil {
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to configure triposter")
+		return
+	}
+
+	go ems.triposter.Start()
 
 	// While cycle isn't finished
 	for {

@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - *(docker)* Create docker setup (#38)
 - *(drivers)* Create POC driver
 - Create release action (#41)
+- *(repo)* Add git-cliff hook (#43)
 
 ### 🐛 Bug Fixes
 
