@@ -21,3 +21,7 @@ repos:
       - id: commitlint
         stages: [commit-msg]
         additional_dependencies: ['@commitlint/config-conventional']
+  - repo: https://github.com/kilianp07/cliff-hook
+    rev: v1.0.1
+    hooks:
+      - id: git-cliff
