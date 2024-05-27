@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.1-rc] - 2024-04-17
 
 ### 🚀 Features
 
@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - *(drivers)* Create POC driver
 - Create release action (#41)
 - *(repo)* Add git-cliff hook (#43)
+- *(triposter)* Integrate library (#44)
 
 ### 🐛 Bug Fixes
 
