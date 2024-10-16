@@ -32,7 +32,7 @@ func Start(confpath string) {
 
 	err = utils.ReadJsonFile(confpath, &ems.configuration)
 	if err != nil {
-		log.Fatal().Str("Error:", err.Error()).Msg("Reading Conf")
+		log.Error().Str("Error:", err.Error()).Msg("Reading Conf")
 		return
 	}
 
@@ -46,7 +46,7 @@ func Start(confpath string) {
 	ems.context, err = context.New(ems.configuration.Contexts)
 	if err != nil {
 		// #14
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create context")
+		log.Error().Str("Error:", err.Error()).Msg("Failed to create context")
 		return
 	}
 
@@ -54,25 +54,25 @@ func Start(confpath string) {
 	managerEquipment, err := manager.New(ems.configuration.Equipments, ems.context)
 	if err != nil {
 		// #8
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create managerEquipment")
+		log.Error().Str("Error:", err.Error()).Msg("Failed to create managerEquipment")
 		return
 	}
 
 	ems.equipmentManager = managerEquipment
 	if err := ems.equipmentManager.SetupEquipments(); err != nil {
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to setup equipments")
+		log.Error().Str("Error:", err.Error()).Msg("Failed to setup equipments")
 		return
 	}
 
 	servicesManager, err := services.New(ems.configuration.Services, ems.context, ems.configuration.Modes)
 	if err != nil {
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create servicesManager")
+		log.Error().Str("Error:", err.Error()).Msg("Failed to create servicesManager")
 		return
 	}
 
 	ems.serviceManager = servicesManager
 	if err := ems.serviceManager.SetupServices(); err != nil {
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to setup services")
+		log.Error().Str("Error:", err.Error()).Msg("Failed to setup services")
 		return
 	}
 
@@ -80,7 +80,7 @@ func Start(confpath string) {
 	ems.triposter = client.New(ems.configuration.Triposter, ems.context, log.Logger)
 	err = ems.triposter.Configure()
 	if err != nil {
-		log.Fatal().Str("Error:", err.Error()).Msg("Failed to configure triposter")
+		log.Error().Str("Error:", err.Error()).Msg("Failed to configure triposter")
 		return
 	}
 
@@ -90,26 +90,26 @@ func Start(confpath string) {
 	for {
 		// Executing all drivers
 		if err := ems.equipmentManager.InitCycle(); err != nil {
-			log.Fatal().Str("Error:", err.Error()).Msg("Failed to init cycle")
+			log.Error().Str("Error:", err.Error()).Msg("Failed to init cycle")
 			return
 		}
 
 		// Reading drivers values
 		err = ems.equipmentManager.Read()
 		if err != nil {
-			log.Fatal().Str("Error:", err.Error()).Msg("Failed to read")
+			log.Error().Str("Error:", err.Error()).Msg("Failed to read")
 			return
 		}
 
 		if err := ems.serviceManager.UpdateServices(); err != nil {
-			log.Fatal().Str("Error:", err.Error()).Msg("Failed to update services")
+			log.Error().Str("Error:", err.Error()).Msg("Failed to update services")
 			return
 		}
 
 		// Writing the context outputs to drivers
 		err = ems.equipmentManager.Write()
 		if err != nil {
-			log.Fatal().Str("Error:", err.Error()).Msg("Failed to write")
+			log.Error().Str("Error:", err.Error()).Msg("Failed to write")
 			return
 		}
 
