@@ -30,14 +30,6 @@ func Start(confpath string) {
 		err error
 	)
 
-	/*
-		err = utils.ReadJsonFile(confpath, &ems.configuration)
-		if err != nil {
-			log.Fatal().Str("Error:", err.Error()).Msg("Reading Conf")
-			return
-		}
-	*/
-
 	err = utils.ParseConfFile(confpath, &ems.configuration)
 	if err != nil {
 		log.Fatal().Str("Error:", err.Error()).Msg("Reading Conf")
@@ -53,7 +45,6 @@ func Start(confpath string) {
 	// Create the context
 	ems.context, err = context.New(ems.configuration.Contexts)
 	if err != nil {
-		// #14
 		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create context")
 		return
 	}
