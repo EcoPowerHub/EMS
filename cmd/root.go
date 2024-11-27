@@ -8,6 +8,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const (
+	AttrConfFlag = "conf"
+)
+
 var (
 	cfgFile string
 	rootCmd = &cobra.Command{
@@ -17,7 +21,7 @@ var (
 		// À définir ou supprimer
 		Long: `long description (to define)`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if cfgFile == "" {
+			if !cmd.Flags().Changed(AttrConfFlag) {
 
 				log.Fatal("Missing required flag: --conf.")
 				_ = cmd.Help()
@@ -40,5 +44,5 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "conf", "c", "", "(required) path to configuration file")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, AttrConfFlag, "c", "", "(required) path to configuration file")
 }
