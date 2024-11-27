@@ -32,6 +32,14 @@ func ParseConfFile(path string, target interface{}) (err error) {
 		return errors.New("unsupported file format: " + ext)
 	}
 
+	// Validate path
+	if path == "" {
+		return errors.New("configuration file path cannot be empty")
+	}
+	if _, err := os.Stat(path); err != nil {
+		return fmt.Errorf("configuration file not accessible: %w", err)
+	}
+
 	// Chargement du fichier de configuration.
 	if err = k.Load(file.Provider(path), parser); err != nil {
 		return fmt.Errorf("failed to load configuration file: %w", err)
