@@ -30,7 +30,7 @@ func Start(confpath string) {
 		err error
 	)
 
-	err = utils.ReadJsonFile(confpath, &ems.configuration)
+	err = utils.ParseConfFile(confpath, &ems.configuration)
 	if err != nil {
 		log.Error().Str("Error:", err.Error()).Msg("Reading Conf")
 		return
@@ -45,16 +45,14 @@ func Start(confpath string) {
 	// Create the context
 	ems.context, err = context.New(ems.configuration.Contexts)
 	if err != nil {
-		// #14
-		log.Error().Str("Error:", err.Error()).Msg("Failed to create context")
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create context")
 		return
 	}
 
 	// Create a managerEquipment with the parsed config
 	managerEquipment, err := manager.New(ems.configuration.Equipments, ems.context)
 	if err != nil {
-		// #8
-		log.Error().Str("Error:", err.Error()).Msg("Failed to create managerEquipment")
+		log.Fatal().Str("Error:", err.Error()).Msg("Failed to create managerEquipment")
 		return
 	}
 
