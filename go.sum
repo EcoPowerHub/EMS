@@ -1,9 +1,9 @@
-github.com/EcoPowerHub/context v0.1.5 h1:l65iD3BSTmDz2BM7ZEOe1eEoCQvIphPq+al0wlI79ro=
-github.com/EcoPowerHub/context v0.1.5/go.mod h1:lDctuHDqZgzrPJk7Xc/pnzizla5eiE4JUBdnnOmjAlA=
-github.com/EcoPowerHub/shared v0.1.6 h1:5TaSdVvCq6bLY2uhtM8I16dd3nLTRJb/5RG1Vz0V5BM=
-github.com/EcoPowerHub/shared v0.1.6/go.mod h1:FT6mGco4ZV6LcnvxWy4s/D/BokmM52Na70iK3nF1/wc=
-github.com/EcoPowerHub/triposter v0.1.1 h1:pq1XaMAjWNty4EJ9Gmhoea0tSHfXGnVAbD0Cus95PNU=
-github.com/EcoPowerHub/triposter v0.1.1/go.mod h1:DzmFIx25rvcIe4wRtO+F+IsbbR+2ypgDyFFvJJTQWug=
+github.com/EcoPowerHub/context v0.2.0 h1:9usVmfLTDn2osH5f+mi3zNrS1fe7p/XBxVPNlj7iN9Y=
+github.com/EcoPowerHub/context v0.2.0/go.mod h1:8JaB0Ij5rXynP/5+AecX54X3evhq10oJCVGOIjpTcmA=
+github.com/EcoPowerHub/shared v0.2.0 h1:srFRd7LlwJyNj4OWGTkqwCcfCKCIJkHYjJ68wch/fPQ=
+github.com/EcoPowerHub/shared v0.2.0/go.mod h1:FT6mGco4ZV6LcnvxWy4s/D/BokmM52Na70iK3nF1/wc=
+github.com/EcoPowerHub/triposter v0.2.0 h1:96vWVYIV2jND/OMVHK1laSvQ9PXWsKsGULZmdCezmB4=
+github.com/EcoPowerHub/triposter v0.2.0/go.mod h1:l4IUDY6VygySXRozXW5SR1uKurj+6AFjwPF26VL0n0k=
 github.com/PaesslerAG/gval v1.2.2 h1:Y7iBzhgE09IGTt5QgGQ2IdaYYYOU134YGHBThD+wm9E=
 github.com/PaesslerAG/gval v1.2.2/go.mod h1:XRFLwvmkTEdYziLdaCeCa5ImcGVrfQbeNUbVR+C6xac=
 github.com/PaesslerAG/jsonpath v0.1.0 h1:gADYeifvlqK3R3i2cR5B4DGgxLXIPb3TRTH1mGi0jPI=

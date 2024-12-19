@@ -5,9 +5,9 @@ go 1.21.5
 toolchain go1.22.1
 
 require (
-	github.com/EcoPowerHub/context v0.1.5
-	github.com/EcoPowerHub/shared v0.1.6
-	github.com/EcoPowerHub/triposter v0.1.1
+	github.com/EcoPowerHub/context v0.2.0
+	github.com/EcoPowerHub/shared v0.2.0
+	github.com/EcoPowerHub/triposter v0.2.0
 	github.com/PaesslerAG/gval v1.2.2
 	github.com/knadh/koanf/parsers/json v0.1.0
 	github.com/knadh/koanf/parsers/toml v0.1.0

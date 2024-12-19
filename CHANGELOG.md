@@ -2,7 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🚀 Features
+
+- *(core)* Updating to context v0.2.0, shared v0.2.0, triposte v0.2.0
+
+### 🐛 Bug Fixes
+
+- Remplacement de des log fatal par error (#49)
+- *(cmd)* Check if conf flag is set (#52)
+
+## [0.1] - 2024-05-27
+
+### Bump
+
+- Triposter v0.1.0 ->v0.1.1
+
 ## [0.1-rc] - 2024-04-17
+
+### 🚀 Features
+
+- *(repo)* Add git-cliff hook (#43)
+- *(triposter)* Integrate library (#44)
+
+## [0.1-benchs] - 2024-03-16
 
 ### 🚀 Features
 
@@ -24,8 +48,6 @@ All notable changes to this project will be documented in this file.
 - *(docker)* Create docker setup (#38)
 - *(drivers)* Create POC driver
 - Create release action (#41)
-- *(repo)* Add git-cliff hook (#43)
-- *(triposter)* Integrate library (#44)
 
 ### 🐛 Bug Fixes
 
